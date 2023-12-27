@@ -1,0 +1,24 @@
+<odoo>
+    <template id="replace_header" inherit_id="portal.frontend_layout" name="Header">
+        <xpath
+            expr="//nav[@class='navbar navbar-expand-md navbar-light bg-light']"
+            position="replace">
+            <div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="replace_footer"
+        inherit_id="portal.frontend_layout" name="Footer">
+        <xpath
+            expr="//div[@id='footer']"
+            position="replace">
+            <div></div>
+        </xpath>
+        <xpath
+            expr="//div[@class='o_footer_copyright']" position="replace">
+            <div></div>
+        </xpath>
+    </template>
+
+</odoo>

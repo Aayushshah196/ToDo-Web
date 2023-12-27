@@ -1,0 +1,281 @@
+section {
+    padding: 0px 40px;
+    margin-bottom: 16px;
+    background-color: #fbfcfd;
+}
+
+section.o_navbar {
+    padding: 10px 40px;
+    margin-bottom: 16px;
+    background-color: #fbfcfd;
+}
+
+/* Navbar */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.user-profile {
+    background: rgba(230, 136, 107, 0.25);
+    border-radius: 50%;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.user-profile:hover{
+    background: #be263b;
+    color: #ffffff;
+}
+
+.user-profile h2 {
+    color: #be263b;
+    padding: 12px 12px;
+    margin: 0px;
+}
+.user-profile h2:hover{
+    color: #ffffff;
+}
+
+.logout {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+    color: #4f4f4f;
+    margin-left: 24px;
+}
+
+.logout:hover {
+    color: #eb5757;
+}
+
+/* Reusable components */
+.flex-s-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Date Section */
+
+.date-area h1 {
+    color: #333333;
+}
+
+.date-area p {
+    color: #828282;
+}
+
+.create-task-btn {
+    box-sizing: border-box;
+    padding: 12px 40px;
+    height: 48px;
+    background: #be263b;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: 0.4s;
+}
+
+.create-task-btn:hover {
+    background-color: #A31B3B;
+    color: #ffffff;
+    border: 1px solid #A31B3B;
+}
+
+.create-type-btn {
+    box-sizing: border-box;
+    padding: 12px 40px;
+    height: 48px;
+    background: #ffffff;
+    border: 1px solid #be263b;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #be263b;
+    transition: 0.4s;
+}
+
+.create-type-btn:hover {
+    background-color: #ffffff;
+    color: #A31B3B;
+    border: 1px solid #A31B3B;
+}
+
+.close-btn {
+    box-sizing: border-box;
+    padding: 12px 40px;
+    height: 48px;
+    background: #ffffff;
+    border: 1px solid #be263b;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #be263b;
+}
+
+.close-btn:hover {
+    background-color: #ffffff;
+    color: #A31B3B;
+    border: 1px solid #A31B3B;
+}
+
+.create-btn, .btn-submit{
+    box-sizing: border-box;
+    padding: 12px 40px;
+    height: 48px;
+    background: #be263b;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: 0.4s;
+}
+
+.create-btn:hover, .btn-submit:hover{
+    background-color: #A31B3B;
+    color: #ffffff;
+    border: 1px solid #A31B3B;
+}
+
+/* Dashboard Overview    */
+.card {
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+.overview {
+    gap: 50px;
+}
+
+.task-overview {
+    height: 140px;
+    flex: 1;
+    gap: 30px;
+    padding: 42px 56px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+.task-overview:hover{
+    border: 1px solid #be263b;
+}
+
+.stat {
+    color: #828282;
+    margin: 0px;
+
+}
+.count {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 40px;
+    color: #000000;
+}
+
+.accordion-header {
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+
+/* Task Modal & Type Modal */
+.task-modal, .type-modal {
+    display: block;
+    z-index: 5;
+}
+
+
+/* Task List */
+.list {
+    padding: 20px 40px 20px 40px;
+}
+
+.task {
+    display: flex;
+    justify-content: baseline;
+}
+
+.check-task {
+    display: flex;
+    gap: 20px;
+    flex: 4;
+}
+
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+    accent-color: #be263b;
+    cursor: pointer;
+    border: 1px solid #BE263B;
+	outline: none;
+	content: none;
+}
+
+.task-title {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+}
+
+.task-type {
+    color: #828282;
+}
+
+.priority {
+    padding: 6px 12px;
+    margin-right: 30px;
+    border-radius: 8px;
+    height: fit-content;
+}
+.priority-high{
+    background: rgba(235, 87, 87, 0.05);
+}
+.priority-medium{
+    background: rgba(33, 150, 83, 0.05);
+}
+.priority-low{
+    background: rgba(242, 153, 74, 0.05);
+}
+
+.color-red{
+    color: #eb5757;
+
+}
+.color-green{
+    color: #219653;
+
+}
+.color-orange{
+    color: #F2994A;
+}
+
+
+/* Accordion style */
+.accordion {
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    background-color: #ffffff;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+}

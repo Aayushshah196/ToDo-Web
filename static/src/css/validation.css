@@ -1,0 +1,46 @@
+
+  /* The message box is shown when the user clicks on the password field */
+  #message, #message2 {
+    display:none;
+    background: transparent;
+    color: #000;
+    position: relative;
+    margin-top: 10px;
+  }
+  
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+  }
+  
+  .valid:before {
+     font-weight: 900; 
+     content: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.00016 0.333374C3.3335 0.333374 0.333496 3.33337 0.333496 7.00004C0.333496 10.6667 3.3335 13.6667 7.00016 13.6667C10.6668 13.6667 13.6668 10.6667 13.6668 7.00004C13.6668 3.33337 10.6668 0.333374 7.00016 0.333374ZM5.66683 10.3334L2.3335 7.00004L3.2735 6.06004L5.66683 8.44671L10.7268 3.38671L11.6668 4.33337L5.66683 10.3334Z' fill='%23219653'/%3E%3C/svg%3E");
+    padding-right: 10px;
+    position: relative;
+    left: 0px;
+    
+  }
+  
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    padding-right: 10px;
+    left: 0px;
+    content: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.00016 0.333374C10.6868 0.333374 13.6668 3.31337 13.6668 7.00004C13.6668 10.6867 10.6868 13.6667 7.00016 13.6667C3.3135 13.6667 0.333496 10.6867 0.333496 7.00004C0.333496 3.31337 3.3135 0.333374 7.00016 0.333374ZM9.3935 3.66671L7.00016 6.06004L4.60683 3.66671L3.66683 4.60671L6.06016 7.00004L3.66683 9.39337L4.60683 10.3334L7.00016 7.94004L9.3935 10.3334L10.3335 9.39337L7.94016 7.00004L10.3335 4.60671L9.3935 3.66671Z' fill='%23EB5757'/%3E%3C/svg%3E");
+  }
+
+  .invalid-match {
+    color: red;
+  }
+  
+  .invalid-match:before {
+    position: relative;
+    padding-right: 10px;
+    left: 0px;
+    content: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.66659 7.66671H6.33325V3.66671H7.66659V7.66671ZM7.66659 10.3334H6.33325V9.00004H7.66659V10.3334ZM6.99992 0.333374C6.12444 0.333374 5.25753 0.505812 4.4487 0.840844C3.63986 1.17588 2.90493 1.66694 2.28587 2.286C1.03563 3.53624 0.333252 5.23193 0.333252 7.00004C0.333252 8.76815 1.03563 10.4638 2.28587 11.7141C2.90493 12.3331 3.63986 12.8242 4.4487 13.1592C5.25753 13.4943 6.12444 13.6667 6.99992 13.6667C8.76803 13.6667 10.4637 12.9643 11.714 11.7141C12.9642 10.4638 13.6666 8.76815 13.6666 7.00004C13.6666 6.12456 13.4941 5.25765 13.1591 4.44882C12.8241 3.63998 12.333 2.90505 11.714 2.286C11.0949 1.66694 10.36 1.17588 9.55114 0.840844C8.7423 0.505812 7.8754 0.333374 6.99992 0.333374V0.333374Z' fill='%23EB5757'/%3E%3C/svg%3E");
+  }

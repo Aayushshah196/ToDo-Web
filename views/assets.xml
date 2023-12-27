@@ -1,0 +1,28 @@
+<odoo>
+    <template id="todo_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/common.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css" />
+
+            <script type="text/javascript" src="/todo/static/src/js/todo_action.js" />
+            <script type="text/javascript" src="/todo/static/src/js/dashboard.js" />
+            <script type="text/javascript" src="/todo/static/src/js/navbar.js" />
+            <script type="text/javascript" src="/todo/static/src/js/task_accordion.js" />
+            <script type="text/javascript" src="/todo/static/src/js/task_list.js" />
+            <script type="text/javascript" src="/todo/static/src/js/task_modal.js" />
+            <script type="text/javascript" src="/todo/static/src/js/type_modal.js" />
+        </xpath>
+    </template>
+
+    <template id="todo_frontend" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/common.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/dashboard.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/validation.css" />
+            <link rel="stylesheet" type="text/css" href="/todo/static/src/css/auth.css" />
+
+
+            <script type="text/javascript" src="/todo/static/src/js/validation.js" />
+        </xpath>
+    </template>
+</odoo>

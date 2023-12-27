@@ -1,0 +1,545 @@
+<templates>
+	<div t-name="todo.main">
+
+		<!-- Navbar -->
+		<section class="o_navbar">
+		</section>
+
+		<section>
+			<div class="flex-s-between">
+				<div class="date-area">
+					<h1>
+						<t t-esc="new Date().toDateString()" />
+					</h1>
+					<p class="subbody"> You have to keep up the pace to accomplish your task in time <i>
+							<svg
+								width="14"
+								height="14"
+								viewBox="0 0 14 14"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M7.00016 12.3333C9.9335 12.3333 12.3335 9.93325 12.3335 6.99992C12.3335 4.06659 9.9335 1.66659 7.00016 1.66659C4.06683 1.66659 1.66683 4.06659 1.66683 6.99992C1.66683 9.93325 4.06683 12.3333 7.00016 12.3333ZM7.00016 0.333252C10.6668 0.333252 13.6668 3.33325 13.6668 6.99992C13.6668 10.6666 10.6668 13.6666 7.00016 13.6666C3.3335 13.6666 0.333496 10.6666 0.333496 6.99992C0.333496 3.33325 3.3335 0.333252 7.00016 0.333252ZM9.20016 9.79992L8.3335 10.3333L6.3335 6.86659V3.66659H7.3335V6.59992L9.20016 9.79992Z"
+									fill="#828282"
+								/>
+							</svg>
+						</i>
+					</p>
+				</div>
+
+				<button name="open_task_modal"
+					class="btn btn-primary open_task_modal body create-task-btn">Create new Task</button>
+			</div>
+		</section>
+
+		<!-- Overview Card Details -->
+		<section class="o_dashboard_container">
+		</section>
+
+		<section class="o_modal"></section>
+
+		<!-- Task Details -->
+		<section class="o_task_container">
+			<div class="row mb-2">
+				<div class="col-4">
+					<h1>Today's Task</h1>
+				</div>
+				<div class="col-8 flex-s-between">
+					<h1>List Names</h1>
+					<button name="open_type_modal"
+						class="btn btn-primary open_type_modal body create-type-btn">
+						Create new list
+					</button>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-4 todays-task">
+					<div class="o_task_list_container"></div>
+				</div>
+
+				<div class="col-8 list-names">
+					<div class="o_task_accordion_container"></div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<!-- Task Form Modal -->
+	<div t-name="create_task_modal" class="modal_form">
+		<div class="modal task-modal" id="create-modal">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title" id="exampleModalCenterTitle">Create Task</h1>
+						<button class="close">
+							<span>
+								<i class="fa fa-times"></i>
+							</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<div class="row">
+								<div class="col align-self-center">
+									<form class="create-form" id="task_form">
+										<!-- <input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" /> -->
+										<div class="form-group">
+											<label for="task_name">Task Name</label>
+											<input name="name" type="text" class="form-control"
+												id="task_name" placeholder="Enter task name"
+												required="required" />
+											<small class="text-red error"
+												style="display:none; color:#be263b">Field
+												is
+												required</small>
+										</div>
+										<div class="row">
+											<div class="col">
+
+												<div class="form-group">
+													<label for="task_type">Choose list</label>
+													<select name="task_type" class="form-control"
+														id="task_type"
+														placeholder="Choose list name">
+														<t t-foreach="task_types" t-as="task_type">
+															<option t-esc="task_type.name"
+																t-att-value="task_type.id" />
+														</t>
+													</select>
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group">
+													<label for="task_priority">Choose priority</label>
+													<select name="task_priority"
+														class="form-control"
+														id="task_priority"
+														placeholder="Choose priority">
+														<option value="3">High</option>
+														<option value="2">Medium</option>
+														<option value="1">Low</option>
+													</select>
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group">
+													<label for="date_joined">Set date and time</label>
+													<input type="date" name="date_joined"
+														class="form-control" id="date_joined"
+														placeholder="Choose date and time"
+														required="required" />
+													<small class="text-red derror"
+														style="display:none; color:#be263b">Field
+														is
+														required</small>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary close-btn">Cancel</button>
+						<button type="submit" class="btn btn-primary create-btn">Add task</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Task List Form Modal -->
+	<div t-name="create_type_modal" class="modal_form">
+		<div class="modal type-modal" id="create-type-modal">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title" id="exampleModalCenterTitle">Create task type</h1>
+						<button class="close">
+							<span>
+								<i class="fa fa-times"></i>
+							</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<div class="row">
+								<div class="col align-self-center">
+									<form class="type_create_form" id="type_create_form">
+										<!-- <input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" /> -->
+										<div class="form-group">
+											<label for="task_type">List name</label>
+											<input name="name" type="text" class="form-control"
+												id="task_type" placeholder="Enter list name"
+												required="required" />
+											<small class="text-red error"
+												style="display:none; color:#be263b">Field
+												is
+												required</small>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary close-btn">Cancel</button>
+						<button type="submit" class="btn btn-primary btn-submit">Add type</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dashboard Components -->
+	<t t-name="dashboard-overview">
+		<h1>Overview</h1>
+		<div class="overview flex-s-between">
+			<div class="task-overview today-task card" name="todays">
+				<i>
+					<svg
+						width="51"
+						height="56"
+						viewBox="0 0 51 56"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M32.6567 24.8889H8.16406V26.963H32.6567V24.8889Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M8.16406 31.1111V33.1851H28.0278L30.0689 31.1111H8.16406Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M8.16406 37.3333V39.4073H21.9043L23.9455 37.3333H8.16406Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M18.3693 43.5557H8.16406V45.6297H18.3693V43.5557Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M50.4026 22.1805L47.5161 19.2475C46.7194 18.438 45.4263 18.4378 44.6296 19.2474C37.2631 26.7331 29.8769 34.2388 22.4517 41.7841C22.4517 45.3732 22.4517 44.5957 22.4517 47.7033C27.3653 47.7033 26.1223 47.7056 28.1813 47.6945C29.2466 46.6119 33.9482 41.8344 38.7801 36.9244V51.8518C38.7801 52.9972 37.8664 53.9259 36.7391 53.9259H4.08223C2.95493 53.9259 2.04118 52.9972 2.04118 51.8518V14.5183C2.04118 13.3728 2.95493 12.4442 4.08223 12.4442H8.16472V16.5925H32.657V12.4444L36.7391 12.4442C37.8664 12.4442 38.7801 13.3728 38.7801 14.5183V22.2217L40.8212 20.1333V14.5183C40.8212 12.2272 38.9935 10.3702 36.7391 10.3702H32.3044C31.6489 8.48767 30.1305 7.01935 28.2294 6.46388C27.2896 6.18933 26.5663 5.45432 26.296 4.49934C25.5606 1.90077 23.2041 0 20.4105 0C17.6171 0 15.2607 1.90077 14.5254 4.49895C14.2547 5.4551 13.5296 6.1892 12.5888 6.46466C10.6885 7.02116 9.16879 8.48793 8.51412 10.3702H4.0821C1.82763 10.3702 0 12.2272 0 14.5183V51.8518C0 54.1428 1.82763 56 4.0821 56H36.7389C38.9934 56 40.821 54.1428 40.821 51.8518V34.8504C45.2092 30.3914 49.2961 26.2382 50.4025 25.1138C51.1991 24.3041 51.1991 22.9901 50.4026 22.1805ZM10.2055 12.4111C10.2195 10.5877 11.4319 8.96212 13.1538 8.45785C14.7752 7.98315 16.0212 6.71744 16.4868 5.07243C16.9865 3.30687 18.6 2.07408 20.4105 2.07408C22.2212 2.07408 23.8346 3.30687 24.3342 5.07243C24.8001 6.71848 26.0452 7.9838 27.6651 8.45708C29.4022 8.96497 30.6156 10.6045 30.6156 12.4444V14.5185H10.2055V12.4111ZM27.331 45.6253C26.8017 45.6283 26.585 45.6292 25.8526 45.6295L24.4926 44.2475V42.6433C24.9985 42.1292 25.3485 41.7736 25.8675 41.2461L28.754 44.1793L27.331 45.6253ZM30.1971 42.7128L27.3107 39.7796L40.2999 26.5803L43.1864 29.5136L30.1971 42.7128ZM44.6295 28.0468L41.7431 25.1137L43.1864 23.647L46.0729 26.5802L44.6295 28.0468ZM47.5161 25.1138L44.6295 22.1805L46.0728 20.714L48.9593 23.6471L47.5161 25.1138Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M20.4409 7.77787C21.2864 7.77787 21.9717 7.08142 21.9717 6.22231C21.9717 5.3632 21.2864 4.66675 20.4409 4.66675C19.5955 4.66675 18.9102 5.3632 18.9102 6.22231C18.9102 7.08142 19.5955 7.77787 20.4409 7.77787Z"
+							fill="#BE263B"
+						/>
+					</svg>
+				</i>
+				<div>
+					<h2 class="stat">Today's tasks</h2>
+					<p class="count">
+						<t t-esc="today" />
+					</p>
+				</div>
+			</div>
+			<div class="task-overview upcoming-task card" name="upcoming">
+				<i>
+					<svg
+						width="51"
+						height="56"
+						viewBox="0 0 51 56"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M25.5298 8.07698C26.3423 8.07698 27.0009 7.35374 27.0009 6.46158C27.0009 5.56943 26.3423 4.84619 25.5298 4.84619C24.7173 4.84619 24.0586 5.56943 24.0586 6.46158C24.0586 7.35374 24.7173 8.07698 25.5298 8.07698Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M45.1156 12.923C45.1156 10.5439 43.3593 8.61529 41.1926 8.61529H35.7464C35.0199 7.72911 34.0867 7.05105 33.0144 6.71236C32.1113 6.42724 31.4161 5.66397 31.1564 4.67225C30.4496 1.97401 28.1849 0 25.5001 0C22.8155 0 20.5509 1.97388 19.8442 4.67198C19.5841 5.66491 18.8873 6.42724 17.983 6.71344C16.912 7.0524 15.9796 7.72979 15.2537 8.61529H9.80786C7.64109 8.61529 5.88477 10.5439 5.88477 12.923V51.6923C5.88477 54.0714 7.64109 56 9.80786 56C18.8146 56 29.8841 56 41.1926 56C43.3594 56 45.1157 54.0714 45.1157 51.6923C45.1157 39.4585 45.1156 27.7438 45.1156 12.923ZM15.6926 12.8883C15.7061 10.9948 16.8713 9.30668 18.5262 8.78302C20.0844 8.29006 21.2818 6.97567 21.7293 5.26739C22.2095 3.43406 23.7601 2.15386 25.5001 2.15386C27.2403 2.15386 28.7909 3.43406 29.271 5.26753C29.7187 6.97688 30.9153 8.29087 32.4721 8.78235C34.1416 9.30964 35.3077 11.0124 35.3077 12.9229V15.0767H15.6926V12.8883ZM41.1926 53.8461C30.7161 53.8461 20.2568 53.8461 9.80786 53.8461C8.72619 53.8461 7.84631 52.8799 7.84631 51.6923V12.923C7.84631 11.7354 8.72619 10.7691 9.80786 10.7691H14.0671C13.855 11.4277 13.7364 12.1346 13.7312 12.8714V17.2307H37.2695V12.923C37.2695 12.1671 37.1479 11.4434 36.9307 10.7691H41.1926C42.2742 10.7691 43.1541 11.7354 43.1541 12.923C43.1541 19.0807 43.1539 47.9574 43.1543 51.6923C43.1542 52.8799 42.2743 53.8461 41.1926 53.8461Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M37.2697 23.6924H19.6157V25.8462H37.2697V23.6924Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M37.2697 30.1541H19.6157V32.3079H37.2697V30.1541Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M37.2697 36.6157H19.6157V38.7696H37.2697V36.6157Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M37.2697 43.0771H19.6157V45.231H37.2697V43.0771Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M14.7112 25.8462C15.2529 25.8462 15.692 25.3641 15.692 24.7693C15.692 24.1745 15.2529 23.6924 14.7112 23.6924C14.1696 23.6924 13.7305 24.1745 13.7305 24.7693C13.7305 25.3641 14.1696 25.8462 14.7112 25.8462Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M14.7112 32.3079C15.2529 32.3079 15.692 31.8258 15.692 31.231C15.692 30.6362 15.2529 30.1541 14.7112 30.1541C14.1696 30.1541 13.7305 30.6362 13.7305 31.231C13.7305 31.8258 14.1696 32.3079 14.7112 32.3079Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M14.7112 38.7696C15.2529 38.7696 15.692 38.2874 15.692 37.6927C15.692 37.0979 15.2529 36.6157 14.7112 36.6157C14.1696 36.6157 13.7305 37.0979 13.7305 37.6927C13.7305 38.2874 14.1696 38.7696 14.7112 38.7696Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M14.7112 45.231C15.2529 45.231 15.692 44.7488 15.692 44.1541C15.692 43.5593 15.2529 43.0771 14.7112 43.0771C14.1696 43.0771 13.7305 43.5593 13.7305 44.1541C13.7305 44.7488 14.1696 45.231 14.7112 45.231Z"
+							fill="#BE263B"
+						/>
+					</svg>
+				</i>
+				<div>
+					<h2 class="stat">Upcoming tasks</h2>
+					<p class="count">
+						<t t-esc="upcoming" />
+					</p>
+				</div>
+			</div>
+			<div class="task-overview overdue-task card" name="overdue">
+				<i>
+					<svg
+						width="51"
+						height="56"
+						viewBox="0 0 51 56"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M34.1115 7.99987H28.8498C28.1479 7.177 27.2464 6.54737 26.2105 6.23287C25.3379 5.96812 24.6663 5.25937 24.4153 4.3385C23.7325 1.83287 21.5445 0 18.9507 0C16.3571 0 14.1692 1.83288 13.4865 4.33825C13.2352 5.26025 12.5619 5.96812 11.6883 6.23375C10.6536 6.5485 9.75282 7.1775 9.05152 7.99987H3.79017C1.69681 7.99987 0 9.79075 0 11.9999V47.9997C0 50.2089 1.69681 51.9997 3.79017 51.9997H25.1134C24.6348 51.371 24.2058 50.7006 23.8202 49.9997H3.79017C2.74515 49.9997 1.89509 49.1025 1.89509 47.9997V11.9999C1.89509 10.8971 2.74515 9.99987 3.79017 9.99987H7.90511C7.7002 10.6114 7.58555 11.2677 7.58058 11.952V15.9999H30.3214V11.9999C30.3214 11.298 30.2039 10.626 29.994 9.99987H34.1115C35.1564 9.99987 36.0065 10.8971 36.0065 11.9999V21.9999H37.9016V11.9999C37.9016 9.79075 36.2048 7.99987 34.1115 7.99987ZM28.426 13.9997H9.47554V11.9677C9.48857 10.2095 10.6143 8.642 12.213 8.15575C13.7184 7.698 14.8752 6.4775 15.3076 4.89125C15.7716 3.18875 17.2697 2 18.9507 2C20.6319 2 22.13 3.18875 22.5938 4.89125C23.0264 6.4785 24.1825 7.69862 25.6865 8.155C27.2994 8.64462 28.426 10.2257 28.426 11.9997V13.9997Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M18.9794 7.5C19.7644 7.5 20.4007 6.82843 20.4007 6C20.4007 5.17157 19.7644 4.5 18.9794 4.5C18.1944 4.5 17.5581 5.17157 17.5581 6C17.5581 6.82843 18.1944 7.5 18.9794 7.5Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M48.3195 31.3932L49.6595 32.8075L50.9996 31.3932L46.9794 27.1506L45.6393 28.5649L46.9794 29.9791L45.6074 31.4271C43.5042 29.5027 40.8256 28.271 37.8767 28.0505V26H39.7718V24H34.0865V26H35.9816V28.0505C29.0994 28.5651 23.6636 34.6057 23.6636 42C23.6636 49.7319 29.6029 56 36.9292 56C44.2557 56 50.1948 49.7319 50.1948 42C50.1948 38.4941 48.9652 35.2974 46.9474 32.8412L48.3195 31.3932ZM48.2997 41.9999C48.2997 48.6166 43.1988 53.9999 36.9292 53.9999C30.6595 53.9999 25.5587 48.6166 25.5587 41.9999C25.5587 35.3831 30.6595 29.9999 36.9292 29.9999C43.1988 29.9999 48.2997 35.3831 48.2997 41.9999Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M42.9501 34.2395L35.7905 41.7954L37.1191 43.1976L44.2788 35.6416L42.9501 34.2395Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M36.9418 34.0431C37.4719 34.0431 37.9017 33.5896 37.9017 33.0301C37.9017 32.4706 37.4719 32.0171 36.9418 32.0171C36.4117 32.0171 35.9819 32.4706 35.9819 33.0301C35.9819 33.5896 36.4117 34.0431 36.9418 34.0431Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M30.8915 36.6581C31.4216 36.6581 31.8514 36.2045 31.8514 35.6451C31.8514 35.0856 31.4216 34.6321 30.8915 34.6321C30.3614 34.6321 29.9316 35.0856 29.9316 35.6451C29.9316 36.2045 30.3614 36.6581 30.8915 36.6581Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M28.3934 43.0231C28.9236 43.0231 29.3533 42.5695 29.3533 42.0101C29.3533 41.4506 28.9236 40.9971 28.3934 40.9971C27.8633 40.9971 27.4336 41.4506 27.4336 42.0101C27.4336 42.5695 27.8633 43.0231 28.3934 43.0231Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M30.8915 49.3829C31.4216 49.3829 31.8514 48.9294 31.8514 48.3699C31.8514 47.8105 31.4216 47.3569 30.8915 47.3569C30.3614 47.3569 29.9316 47.8105 29.9316 48.3699C29.9316 48.9294 30.3614 49.3829 30.8915 49.3829Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M36.9213 52.0231C37.4514 52.0231 37.8811 51.5695 37.8811 51.0101C37.8811 50.4506 37.4514 49.9971 36.9213 49.9971C36.3912 49.9971 35.9614 50.4506 35.9614 51.0101C35.9614 51.5695 36.3912 52.0231 36.9213 52.0231Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M31.6717 21H8.08838V23.0741H31.6717V21Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M8.08838 27.2219V29.296H27.2147L29.18 27.2219H8.08838Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M8.08838 33.4441V35.5182H21.3185L23.2839 33.4441H8.08838Z"
+							fill="#BE263B"
+						/>
+						<path
+							d="M17.9148 39.6667H8.08838V41.7408H17.9148V39.6667Z"
+							fill="#BE263B"
+						/>
+					</svg>
+				</i>
+				<div>
+					<h2 class="stat">Overdue tasks</h2>
+					<p class="count">
+						<t t-esc="overdue" />
+					</p>
+				</div>
+			</div>
+		</div>
+	</t>
+
+	<!-- Task List Components -->
+	<t t-name="task-list">
+		<div class="list card">
+			<t t-if="tasks.length == 0">
+				<div class="no-task">
+					<p class="subbody">No tasks found</p>
+				</div>
+			</t>
+
+			<t t-else="">
+				<t t-foreach="tasks" t-as="task">
+					<t t-if="task_index != 0">
+						<hr />
+					</t>
+					<div class="task">
+						<div class="check-task">
+							<input type="checkbox" class="checkbox"
+								t-att-index="task_index" t-att-id="task.id" />
+							<div>
+								<h3 class="task-title">
+									<t t-esc="task.name" />
+								</h3>
+								<p class="task-type subbody">
+									<t t-esc="task.task_type[1]" />
+								</p>
+							</div>
+						</div>
+						<t t-if="task.priority=='3'">
+							<div class="priority priority-high">
+								<small class="subbody color-red">High</small>
+							</div>
+						</t>
+						<t t-elif="task.priority=='2'">
+							<div class="priority priority-medium">
+								<small class="subbody color-green">Medium</small>
+							</div>
+						</t>
+						<t t-else="">
+							<div class="priority priority-low">
+								<small class="subbody color-orange">Low</small>
+							</div>
+						</t>
+					</div>
+				</t>
+			</t>
+
+		</div>
+
+	</t>
+
+	<!-- Task Accordion Component -->
+	<t t-name="task-accordion">
+		<div class="accordion" id="accordionExample">
+
+			<t t-if="has_data">
+				<t t-foreach="task_groups" t-as="taskgroup">
+					<t t-if="taskgroup_index != 0">
+						<hr />
+					</t>
+					<div class="card" style="border:none;">
+						<div class="accordion-header card-header flex-s-between"
+							data-toggle="collapse"
+							t-attf-data-target="##{taskgroup}"
+							t-for="taskgroup"
+							aria-expanded="true">
+							<span class="title" t-esc="taskgroup" />
+
+							<span>
+								<i class="fa fa-angle-down"></i>
+							</span>
+						</div>
+						<div>
+							<div class="collapse" t-att-id="taskgroup"
+								data-parent="#accordionExample"
+								style="padding: 15px;">
+								<div class="card-body"
+									style="border:1px solid #E0E0E0
+								; border-radius:10px;">
+									<t t-foreach="taskgroup_value" t-as="task">
+										<t t-if="task_index != 0">
+											<hr />
+										</t>
+										<div
+											class="d-flex justify-content-around align-items-center"
+											style="padding: 10px;"
+										>
+											<div class="check-task">
+												<input type="checkbox" class="checkbox"
+													t-att-index="task_index" t-att-id="task.id" />
+												<div>
+													<h3 class="task-title">
+														<t t-esc="task.name" />
+													</h3>
+												</div>
+											</div>
+											<t
+												t-if="task.priority=='3'">
+												<div class="priority priority-high">
+													<small class="subbody color-red">High</small>
+												</div>
+											</t>
+											<t
+												t-elif="task.priority=='2'">
+												<div class="priority priority-medium">
+													<small class="subbody color-green">Medium</small>
+												</div>
+											</t>
+											<t
+												t-else="">
+												<div class="priority priority-low">
+													<small class="subbody color-orange">Low</small>
+												</div>
+											</t>
+											<div>
+												<t t-esc="task.finish_date" />
+											</div>
+										</div>
+									</t>
+								</div>
+							</div>
+						</div>
+					</div>
+				</t>
+			</t>
+			<t t-else="">
+				<div class="no-task">
+					<p class="subbody">No tasks found</p>
+				</div>
+			</t>
+		</div>
+	</t>
+
+	<!-- Navbar Component -->
+	<t t-name="main_navbar">
+		<div class="main-nav">
+			<ul>
+				<li class="logo">TODO APP</li>
+			</ul>
+			<ul>
+				<li class="user-profile">
+					<t t-if="user">
+						<h2>
+							<t t-esc="user" />
+						</h2>
+
+					</t>
+					<t t-else="">
+						<h2>AsK</h2>
+					</t>
+				</li>
+				<a class="logout" href="/web/session/logout?redirect=/web/login">
+					<i>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 20 20"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M13.333 14.167V11.667H7.5V8.333H13.333V5.833L17.5 10L13.333 14.167ZM11.667 1.667C12.109 1.667 12.533 1.842 12.845 2.155C13.158 2.467 13.333 2.891 13.333 3.333V5H11.667V3.333H4.167V16.667H11.667V15H13.333V16.667C13.333 17.109 13.158 17.533 12.845 17.845C12.533 18.158 12.109 18.333 11.667 18.333H4.167C3.725 18.333 3.301 18.158 2.988 17.845C2.676 17.533 2.5 17.109 2.5 16.667V3.333C2.5 2.891 2.676 2.467 2.988 2.155C3.301 1.842 3.725 1.667 4.167 1.667H11.667Z"
+								fill="#4F4F4F"
+							/>
+						</svg>
+					</i>
+					Logout </a>
+			</ul>
+		</div>
+	</t>
+</templates>

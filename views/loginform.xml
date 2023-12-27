@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Custom login template -->
+    <template id="custom_login" name="Login" inherit_id="web.login">
+        <xpath expr="//form" position="replace">
+            <div class="o_container">
+                <div class="shadow m-6 p-6">
+                    <div class="o_flex_container" style="margin: 30px;">
+                        <div class="col-7">
+                            <h1 class="logo">TODO APP</h1>
+                            <form role="form" t-attf-action="/web/login" method="post"
+                                onsubmit="this.action = this.action + location.hash">
+                                <input type="hidden" name="csrf_token"
+                                    t-att-value="request.csrf_token()" />
+
+                                <h1 class="form-title">Login to your account</h1>
+                                <p class="form-info subbody">Welcome back! Please login to your
+                                    account.</p>
+                                <div class="form-group">
+                                    <label class="label-text body">Email Address</label>
+                                    <div class="left-inner-addon">
+                                        <i>
+                                            <svg width="14" height="12" viewBox="0 0 14 12"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M12.333 3.33341L6.99967 6.66675L1.66634 3.33341V2.00008L6.99967 5.33341L12.333 2.00008V3.33341ZM12.333 0.666748H1.66634C0.926341 0.666748 0.333008 1.26008 0.333008 2.00008V10.0001C0.333008 10.3537 0.473484 10.6928 0.723532 10.9429C0.973581 11.1929 1.31272 11.3334 1.66634 11.3334H12.333C12.6866 11.3334 13.0258 11.1929 13.2758 10.9429C13.5259 10.6928 13.6663 10.3537 13.6663 10.0001V2.00008C13.6663 1.64646 13.5259 1.30732 13.2758 1.05727C13.0258 0.807224 12.6866 0.666748 12.333 0.666748V0.666748Z"
+                                                    fill="#333333" />
+                                            </svg>
+
+                                        </i>
+                                        <input class="form-control" type="text"
+                                            placeholder="example@yourdomain.com" name="login"
+                                            t-att-value="login"
+                                            id="login"
+                                            t-attf-class="form-control #{'form-control-sm' if form_small else ''}"
+                                            required="required" autofocus="autofocus"
+                                            autocapitalize="off" />
+                                    </div>
+                                    <t t-if="error">
+                                        <p class="text-red">
+                                            <small>
+                                                <svg width="14" height="14" viewBox="0 0 14 14"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M7.66659 7.66671H6.33325V3.66671H7.66659V7.66671ZM7.66659 10.3334H6.33325V9.00004H7.66659V10.3334ZM6.99992 0.333374C6.12444 0.333374 5.25753 0.505812 4.4487 0.840844C3.63986 1.17588 2.90493 1.66694 2.28587 2.286C1.03563 3.53624 0.333252 5.23193 0.333252 7.00004C0.333252 8.76815 1.03563 10.4638 2.28587 11.7141C2.90493 12.3331 3.63986 12.8242 4.4487 13.1592C5.25753 13.4943 6.12444 13.6667 6.99992 13.6667C8.76803 13.6667 10.4637 12.9643 11.714 11.7141C12.9642 10.4638 13.6666 8.76815 13.6666 7.00004C13.6666 6.12456 13.4941 5.25766 13.1591 4.44882C12.8241 3.63998 12.333 2.90505 11.714 2.286C11.0949 1.66694 10.36 1.17588 9.55114 0.840844C8.7423 0.505812 7.8754 0.333374 6.99992 0.333374Z"
+                                                        fill="#EB5757" />
+                                                </svg>
+                                                Incorrect email address!</small>
+                                        </p>
+                                    </t>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="label-text body">Password</label>
+                                    <div
+                                        class="left-inner-addon flex-s-between">
+                                        <i>
+                                            <svg width="12" height="15" viewBox="0 0 12 15"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6.00033 11.3334C6.35395 11.3334 6.69309 11.1929 6.94313 10.9429C7.19318 10.6928 7.33366 10.3537 7.33366 10.0001C7.33366 9.64646 7.19318 9.30732 6.94313 9.05727C6.69309 8.80722 6.35395 8.66675 6.00033 8.66675C5.6467 8.66675 5.30756 8.80722 5.05752 9.05727C4.80747 9.30732 4.66699 9.64646 4.66699 10.0001C4.66699 10.3537 4.80747 10.6928 5.05752 10.9429C5.30756 11.1929 5.6467 11.3334 6.00033 11.3334ZM10.0003 5.33342C10.3539 5.33342 10.6931 5.47389 10.9431 5.72394C11.1932 5.97399 11.3337 6.31313 11.3337 6.66675V13.3334C11.3337 13.687 11.1932 14.0262 10.9431 14.2762C10.6931 14.5263 10.3539 14.6667 10.0003 14.6667H2.00033C1.6467 14.6667 1.30756 14.5263 1.05752 14.2762C0.807468 14.0262 0.666992 13.687 0.666992 13.3334V6.66675C0.666992 6.31313 0.807468 5.97399 1.05752 5.72394C1.30756 5.47389 1.6467 5.33342 2.00033 5.33342H2.66699V4.00008C2.66699 3.11603 3.01818 2.26818 3.6433 1.64306C4.26842 1.01794 5.11627 0.666748 6.00033 0.666748C6.43806 0.666748 6.87152 0.752967 7.27594 0.920483C7.68036 1.088 8.04782 1.33353 8.35735 1.64306C8.66688 1.95259 8.91241 2.32005 9.07992 2.72447C9.24744 3.12889 9.33366 3.56234 9.33366 4.00008V5.33342H10.0003ZM6.00033 2.00008C5.46989 2.00008 4.96118 2.2108 4.58611 2.58587C4.21104 2.96094 4.00033 3.46965 4.00033 4.00008V5.33342H8.00033V4.00008C8.00033 3.46965 7.78961 2.96094 7.41454 2.58587C7.03947 2.2108 6.53076 2.00008 6.00033 2.00008Z"
+                                                    fill="#828282" />
+                                            </svg>
+                                        </i>
+                                        <input class="form-control"
+                                            type="password" placeholder="Password" name="password"
+                                            required="required"
+                                            autocomplete="current-password"
+                                            t-att-autofocus="'autofocus' if login else None"
+                                            maxlength="4096" />
+                                        <span class="eye-icon"
+                                            onclick="this.previousElementSibling.type=='text'? this.previousElementSibling.type='password':this.previousElementSibling.type='text' ">
+                                            <svg width="16" height="10" viewBox="0 0 16 10"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.00033 3C7.46989 3 6.96118 3.21071 6.58611 3.58579C6.21104 3.96086 6.00033 4.46957 6.00033 5C6.00033 5.53043 6.21104 6.03914 6.58611 6.41421C6.96118 6.78929 7.46989 7 8.00033 7C8.53076 7 9.03947 6.78929 9.41454 6.41421C9.78961 6.03914 10.0003 5.53043 10.0003 5C10.0003 4.46957 9.78961 3.96086 9.41454 3.58579C9.03947 3.21071 8.53076 3 8.00033 3ZM8.00033 8.33333C7.11627 8.33333 6.26842 7.98214 5.6433 7.35702C5.01818 6.7319 4.66699 5.88406 4.66699 5C4.66699 4.11595 5.01818 3.2681 5.6433 2.64298C6.26842 2.01786 7.11627 1.66667 8.00033 1.66667C8.88438 1.66667 9.73223 2.01786 10.3573 2.64298C10.9825 3.2681 11.3337 4.11595 11.3337 5C11.3337 5.88406 10.9825 6.7319 10.3573 7.35702C9.73223 7.98214 8.88438 8.33333 8.00033 8.33333ZM8.00033 0C4.66699 0 1.82033 2.07333 0.666992 5C1.82033 7.92667 4.66699 10 8.00033 10C11.3337 10 14.1803 7.92667 15.3337 5C14.1803 2.07333 11.3337 0 8.00033 0Z"
+                                                    fill="#828282" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <t t-if="error">
+                                        <p class="text-red">
+                                            <small>
+                                                <svg width="14" height="14" viewBox="0 0 14 14"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M7.66659 7.66671H6.33325V3.66671H7.66659V7.66671ZM7.66659 10.3334H6.33325V9.00004H7.66659V10.3334ZM6.99992 0.333374C6.12444 0.333374 5.25753 0.505812 4.4487 0.840844C3.63986 1.17588 2.90493 1.66694 2.28587 2.286C1.03563 3.53624 0.333252 5.23193 0.333252 7.00004C0.333252 8.76815 1.03563 10.4638 2.28587 11.7141C2.90493 12.3331 3.63986 12.8242 4.4487 13.1592C5.25753 13.4943 6.12444 13.6667 6.99992 13.6667C8.76803 13.6667 10.4637 12.9643 11.714 11.7141C12.9642 10.4638 13.6666 8.76815 13.6666 7.00004C13.6666 6.12456 13.4941 5.25766 13.1591 4.44882C12.8241 3.63998 12.333 2.90505 11.714 2.286C11.0949 1.66694 10.36 1.17588 9.55114 0.840844C8.7423 0.505812 7.8754 0.333374 6.99992 0.333374Z"
+                                                        fill="#EB5757" />
+                                                </svg>
+                                                Incorrect email address!</small>
+
+                                        </p>
+                                    </t>
+                                </div>
+
+                                <p class="text-end">
+                                    <a href="/web/reset_password" class="text-end">Forget password ?</a>
+                                </p>
+                                <div class="form-group">
+                                    <input type="submit" value="Login" />
+                                </div>
+                                <p class="text-center">
+                                    <small class="subbody">Not registered yet ? </small>
+                                    <a href="/web/signup">Create new account</a>
+                                </p>
+                            </form>
+                        </div>
+                        <div class="col-5">
+                            <img class="form-input" src="/todo/static/src/images/writing.png"
+                                alt="Login Image" />
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var eye_icon = document.getElementById("eye-icon");
+                    eye_icon.addEventListener("click", function () {
+                    var conf = document.getElementById("password");
+                    if (conf.type == "password") {
+                    conf.type = "text";
+                    } else {
+                    conf.type = "password";
+                    }
+                    });
+                </script>
+            </div>
+        </xpath>
+    </template>
+</odoo>
